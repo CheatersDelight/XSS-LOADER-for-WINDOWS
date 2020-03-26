@@ -2,7 +2,6 @@ import requests
 import sys
 import random
 
-
 def get_user_agent():
     try:
         lines = [line.rstrip("\n") for line in open("useragent.txt")]
@@ -55,21 +54,27 @@ def xssFind():
             sys.exit()
         else:
             print("Wrong Choose..!!!")
-        choose = choose.replace("\\","/")
+        choose = choose.replace("\\", "/")
         while True:
             with open(choose, "r", errors="replace") as f:
                 for i in f:
-                    usrr = get_user_agent()
-                    header = {"User-Agent": "{}".format(random.choice(usrr))}
-                    req = requests.post(url + i, headers=header)
-                    if i in req.text:
-                        print("Parameter vulnerable\r\n")
-                        print("Vulneranle Payload Find\t: " + req.url)
-                        with open("vulnpayload.txt", "a+") as ss:
-                            ss.write(i)
+                    try:
+                        usrr = get_user_agent()
+                        header = {"User-Agent": "{}".format(random.choice(usrr))}
+                        req = requests.get(url + i, headers=header)
+                        if i in req.text:
+                            print("Parameter vulnerable\r\n")
+                            print("Vulneranle Payload Find\t: " + req.url)
+                            with open("vulnpayload.txt", "a+") as ss:
+                                ss.write(i)
 
-                    else:
-                        print("TRYING\t:", req.url)
+                        else:
+                            print("TRYING\t:", req.url)
+                    except:
+                        pass
+                break
+
+
 
     except Exception as err:
         print(err)
