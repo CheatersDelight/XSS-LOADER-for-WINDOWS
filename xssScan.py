@@ -65,8 +65,9 @@ def xssFind():
             sys.exit()
         else:
             print("Wrong Choose..!!!")
+        choose = choose.replace("\\","/")
         while True:
-            with open(choose, "r") as f:
+            with open(choose, "r", encoding="utf-8") as f:
                 for i in f:
                     usrr = get_user_agent()
                     header = {"User-Agent": "{}".format(random.choice(usrr))}
