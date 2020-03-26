@@ -3,16 +3,6 @@ import sys
 import random
 
 
-class colors:
-    r = '\033[31m'
-    g = '\033[32m'
-    y = '\033[33m'
-    b = '\033[34m'
-    m = '\033[35m'
-    c = '\033[36m'
-    w = '\033[37m'
-
-
 def get_user_agent():
     try:
         lines = [line.rstrip("\n") for line in open("useragent.txt")]
@@ -24,7 +14,7 @@ def get_user_agent():
 
 def xssFind():
     try:
-        print(colors.b, "e.g target -----> http://target.com/index.php?name=")
+        print("e.g target -----> http://target.com/index.php?name=")
         url = input("Please Enter Target Url\t:")
         print("Default Payload List -----> xss-payloads.txt \t")
         y = """
@@ -73,13 +63,13 @@ def xssFind():
                     header = {"User-Agent": "{}".format(random.choice(usrr))}
                     req = requests.post(url + i, headers=header)
                     if i in req.text:
-                        print(colors.r, "Parameter vulnerable\r\n")
-                        print(colors.r, "Vulneranle Payload Find\t: " + req.url)
+                        print("Parameter vulnerable\r\n")
+                        print("Vulneranle Payload Find\t: " + req.url)
                         with open("vulnpayload.txt", "a+") as ss:
                             ss.write(i)
 
                     else:
-                        print(colors.b, "TRYING\t:", req.url)
+                        print("TRYING\t:", req.url)
 
     except Exception as err:
         print(err)
