@@ -25,7 +25,7 @@ def dorkFind():
             for i in soup.findAll("div", {"class": "organic"}):
                 urls = i.a['href']
                 print(urls)
-                with open("dork.txt", "a") as f:
+                with open("dork.txt", "a", encoding="utf-8") as f:
                     f.write(urls + "\n")
     except Exception as err:
         print(err)
